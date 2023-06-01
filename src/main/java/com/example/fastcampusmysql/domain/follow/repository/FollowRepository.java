@@ -4,6 +4,7 @@ import com.example.fastcampusmysql.domain.follow.entity.Follow;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
@@ -27,6 +28,12 @@ public class FollowRepository {
             .toMemberId(resultSet.getLong("toMemberId"))
             .createdAt(resultSet.getObject("createdAt", LocalDateTime.class))
             .build();
+
+    public List<Follow> findAllByFromMemberId(Long fromMemberId) {
+        var sql = String.format("SELECT * FROM %s WHERE fromMemberId=:fromMemberId", TABLE);
+        var params = new MapSqlParameterSource().addValue("fromMemberId", fromMemberId);
+        return namedParameterJdbcTemplate.query(sql, params, rowMapper);
+    }
 
     public Follow save(Follow follow) {
         if (follow.getId() == null) {
