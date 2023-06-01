@@ -22,6 +22,15 @@ public class MemberRepository {
 
     final static private String TABLE = "Member";
 
+    final static RowMapper<Member> rowMapper = (ResultSet resultSet, int rowNum) -> Member
+            .builder()
+            .id(resultSet.getLong("id"))
+            .email(resultSet.getString("email"))
+            .nickname(resultSet.getString("nickname"))
+            .birthday(resultSet.getObject("birthday", LocalDate.class))
+            .createdAt(resultSet.getObject("createdAt", LocalDateTime.class))
+            .build();
+
     /**
      * select
      * from Member
@@ -32,14 +41,6 @@ public class MemberRepository {
         var param = new MapSqlParameterSource()
                 .addValue("id", id);
 
-        RowMapper<Member> rowMapper = (ResultSet resultSet, int rowNum) -> Member
-                .builder()
-                .id(resultSet.getLong("id"))
-                .email(resultSet.getString("email"))
-                .nickname(resultSet.getString("nickname"))
-                .birthday(resultSet.getObject("birthday", LocalDate.class))
-                .createdAt(resultSet.getObject("createdAt", LocalDateTime.class))
-                .build();
         var member = namedParameterJdbcTemplate.queryForObject(sql, param, rowMapper);
         return Optional.ofNullable(member);
     }
