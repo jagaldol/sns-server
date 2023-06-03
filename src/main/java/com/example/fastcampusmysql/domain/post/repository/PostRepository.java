@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 public class PostRepository {
     final private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    final static private String TABLE = "Post";
+    final static private String TABLE = "POST";
 
     final static RowMapper<Post> rowMapper = (ResultSet resultSet, int rowNum) -> Post
             .builder()
