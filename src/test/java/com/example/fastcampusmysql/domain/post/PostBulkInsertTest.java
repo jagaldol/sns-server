@@ -3,8 +3,6 @@ package com.example.fastcampusmysql.domain.post;
 import com.example.fastcampusmysql.domain.post.entity.Post;
 import com.example.fastcampusmysql.domain.post.repository.PostRepository;
 import com.example.fastcampusmysql.util.PostFixtureFactory;
-import org.jeasy.random.EasyRandomParameters;
-import org.jeasy.random.randomizers.range.LocalDateRangeRandomizer;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -29,8 +27,8 @@ public class PostBulkInsertTest {
         var stopWatch = new StopWatch();
         stopWatch.start();
 
-        int _1만 = 10000;
-        var posts = IntStream.range(0, _1만 * 200)
+        int _1M = 10000;
+        var posts = IntStream.range(0, _1M * 200)
                 .parallel()
                 .mapToObj(i -> easyRandom.nextObject(Post.class))
                 .toList();
