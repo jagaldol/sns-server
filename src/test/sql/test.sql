@@ -7,3 +7,18 @@ LIMIT 2 offset 8;
 SELECT  *
 FROM post
 WHERE memberId = 4 and id > 1000;
+
+
+# 트랜잭션
+
+START TRANSACTION;
+
+# 여러 개의 SQL 문들
+# 여러 개의 SQL 문들
+# 여러 개의 SQL 문들
+
+COMMIT ;
+
+# 롤백할거면 COMMIT 대신
+
+ROLLBACK ;
