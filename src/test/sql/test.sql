@@ -33,7 +33,7 @@ START TRANSACTION ;
 
 SELECT *
 FROM post
-WHERE memberId = 1 and contents = 'string'
+WHERE memberId = 1
 FOR UPDATE;
 
 COMMIT;
