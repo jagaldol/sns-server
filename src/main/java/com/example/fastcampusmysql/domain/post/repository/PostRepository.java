@@ -20,6 +20,7 @@ import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Repository
@@ -34,6 +35,7 @@ public class PostRepository {
             .memberId(resultSet.getLong("memberId"))
             .contents(resultSet.getString("contents"))
             .createdDate(resultSet.getObject("createdDate", LocalDate.class))
+            .likeCount(resultSet.getLong("likeCount"))
             .createdAt(resultSet.getObject("createdAt", LocalDateTime.class))
             .build();
 
