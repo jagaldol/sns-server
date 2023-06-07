@@ -22,3 +22,27 @@ COMMIT ;
 # 롤백할거면 COMMIT 대신
 
 ROLLBACK ;
+
+# Lock
+
+SELECT *
+FROM post
+WHERE memberId = 1 and contents = 'string';
+
+START TRANSACTION ;
+
+SELECT *
+FROM post
+WHERE memberId = 1 and contents = 'string'
+FOR UPDATE;
+
+COMMIT;
+
+## Transaction 확인
+SELECT *
+FROM information_schema.INNODB_TRX;
+
+## Lock 확인
+SELECT *
+FROM performance_schema.data_locks
+WHERE LOCK_TYPE = 'RECORD';
