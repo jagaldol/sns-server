@@ -57,6 +57,23 @@ public class PostRepository {
         return namedParameterJdbcTemplate.query(sql, params, DAILY_POST_COUNT_ROW_MAPPER);
     }
 
+    public Optional<Post> findById(Long postId, Boolean requiredLock) {
+        var sql = String.format("""
+                SELECT *
+                FROM %s
+                WHERE id = :id
+                """, TABLE);
+
+        if (requiredLock) {
+            sql += "FOR UPDATE";
+        }
+
+        var params = new MapSqlParameterSource()
+                .addValue("id", postId);
+    var nullablePost = namedParameterJdbcTemplate.queryForObject(sql, params, ROW_MAPPER);
+        return Optional.ofNullable(nullablePost);
+    }
+
     public Page<Post> findAllByMemberId(Long memberId, Pageable pageable) {
         var sql = String.format("""
                 SELECT *
@@ -181,7 +198,7 @@ public class PostRepository {
         if (post.getId() == null) {
             return insert(post);
         }
-        throw new UnsupportedOperationException("Post는 갱신을 지원하지 않습니다.");
+        return update(post);
     }
 
     public void bulkInsert(List<Post> posts) {
@@ -212,6 +229,22 @@ public class PostRepository {
                 .createdDate(post.getCreatedDate())
                 .createdAt(post.getCreatedAt())
                 .build();
+    }
+
+    private Post update(Post post) {
+        var sql = String.format("""
+                UPDATE %s set
+                    memberId = :memberId,
+                    contents = :contents,
+                    createdDate = :createdDate,
+                    likeCount = :likeCount,
+                    createdAt = :createdAt
+                WHERE id = :id
+                """, TABLE);
+        SqlParameterSource params = new BeanPropertySqlParameterSource(post);
+
+        namedParameterJdbcTemplate.update(sql, params);
+        return post;
     }
 
 }
