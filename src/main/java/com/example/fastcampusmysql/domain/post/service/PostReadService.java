@@ -49,14 +49,14 @@ public class PostReadService {
 
     private List<Post> findAllBy(Long memberId, CursorRequest cursorRequest) {
         if (cursorRequest.hasKey())
-            return postRepository.findAllByLessThanIdAndMemberIdAndOrderByIDDesc(cursorRequest.key(), memberId, cursorRequest.size());
-        return postRepository.findAllByMemberIdAndOrderByIDDesc(memberId, cursorRequest.size());
+            return postRepository.findAllByLessThanIdAndMemberIdAndOrderByIdDesc(cursorRequest.key(), memberId, cursorRequest.size());
+        return postRepository.findAllByMemberIdAndOrderByIdDesc(memberId, cursorRequest.size());
     }
 
     private List<Post> findAllBy(List<Long> memberIds, CursorRequest cursorRequest) {
         if (cursorRequest.hasKey())
-            return postRepository.findAllByLessThanIdAndInMemberIdsAndOrderByIDDesc(cursorRequest.key(), memberIds, cursorRequest.size());
-        return postRepository.findAllByInMemberIdsAndOrderByIDDesc(memberIds, cursorRequest.size());
+            return postRepository.findAllByLessThanIdAndInMemberIdsAndOrderByIdDesc(cursorRequest.key(), memberIds, cursorRequest.size());
+        return postRepository.findAllByInMemberIdsAndOrderByIdDesc(memberIds, cursorRequest.size());
     }
 
     private static long getNextKey(List<Post> posts) {

@@ -85,7 +85,7 @@ public class PostRepository {
         return namedParameterJdbcTemplate.queryForObject(sql, params, Long.class);
     }
 
-    public List<Post> findAllByMemberIdAndOrderByIDDesc(Long memberId, int size) {
+    public List<Post> findAllByMemberIdAndOrderByIdDesc(Long memberId, int size) {
         var sql = String.format("""
                 SELECT *
                 FROM %s
@@ -100,7 +100,7 @@ public class PostRepository {
         return namedParameterJdbcTemplate.query(sql, params, ROW_MAPPER);
     }
 
-    public List<Post> findAllByInMemberIdsAndOrderByIDDesc(List<Long> memberIds, int size) {
+    public List<Post> findAllByInMemberIdsAndOrderByIdDesc(List<Long> memberIds, int size) {
         if (memberIds.isEmpty()) {
             return List.of();
         }
@@ -119,7 +119,7 @@ public class PostRepository {
         return namedParameterJdbcTemplate.query(sql, params, ROW_MAPPER);
     }
 
-    public List<Post> findAllByLessThanIdAndMemberIdAndOrderByIDDesc(Long id, Long memberId, int size) {
+    public List<Post> findAllByLessThanIdAndMemberIdAndOrderByIdDesc(Long id, Long memberId, int size) {
         var sql = String.format("""
                 SELECT *
                 FROM %s
@@ -135,7 +135,7 @@ public class PostRepository {
         return namedParameterJdbcTemplate.query(sql, params, ROW_MAPPER);
     }
 
-    public List<Post> findAllByLessThanIdAndInMemberIdsAndOrderByIDDesc(Long id, List<Long> memberIds, int size) {
+    public List<Post> findAllByLessThanIdAndInMemberIdsAndOrderByIdDesc(Long id, List<Long> memberIds, int size) {
         if (memberIds.isEmpty()) {
             return List.of();
         }
