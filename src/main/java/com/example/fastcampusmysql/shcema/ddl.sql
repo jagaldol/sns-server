@@ -67,3 +67,14 @@ create table Timeline
 
 create index Timeline__index_member_id
     on Timeline (memberId);
+
+# UNIQUE KEY (memberId, postId)를 걸면 한사람당 하나씩만 좋아요 가능
+create table PostLike
+(
+    id int auto_increment,
+    memberId int not null,
+    postId int not null,
+    createdAt datetime not null,
+    constraint PostLike_id_uindex
+        primary key (id)
+);
